@@ -45,7 +45,9 @@ void draw() {
 
   case GAME_START:
     /*---------Print Text-------------*/
-    text("press enter", 320, 240); // replace this with printText
+    printText(320,180,320,220,"GALIXIAN","Press ENTER to Start",60) ;  
+ 
+     // replace this with printText
     /*--------------------------------*/
     break;
 
@@ -71,13 +73,15 @@ void draw() {
 
   case GAME_PAUSE:
     /*---------Print Text-------------*/
-
+    printText(320,180,320,220,"PAUSE","Press ENTER to Pause",40);
+    
     /*--------------------------------*/
     break;
 
   case GAME_WIN:
     /*---------Print Text-------------*/
-
+     printText(320,300,320,340,"WINNER","SCORE:",40);
+    
     /*--------------------------------*/
     winAnimate();
     break;
@@ -85,7 +89,8 @@ void draw() {
   case GAME_LOSE:
     loseAnimate();
     /*---------Print Text-------------*/
-
+    printText(320,180,320,220,"BOOM","You are dead!!",40);
+  
     /*--------------------------------*/
     break;
   }
@@ -114,14 +119,32 @@ void keyPressed() {
 }
 
 /*---------Make Alien Function-------------*/
-void alienMaker() {
-  aList[0]= new Alien(50, 50);
+void alienMaker(int ox,int oy,int SpacingX,int SpacingY,
+int num,int numInRow) {
+  
+  for(int i =0; i<num;i++){
+  int row = i / numInRow;
+  int col = i % numInRow;
+
+//draw frog
+ int x = ox + SpacingX*col;
+ int y = oy + SpacingY*row;
+ aList[i]= new Alien(x,y);
+ }
 }
 
 void drawLife() {
   fill(230, 74, 96);
   text("LIFE:", 36, 455);
   /*---------Draw Ship Life---------*/
+  for(int i =0; i<3;i++){
+  int lifeIX = 78;
+  int lifeIY =459;
+  int spacing = 25;
+  int x = lifeIX+i*spacing;
+  int y = lifeIY;
+  ellipse(x,y,15,15);
+ }
 }
 
 void drawBullet() {
@@ -196,8 +219,10 @@ void checkAlienDead() {
     Bullet bullet = bList[i];
     for (int j=0; j<aList.length-1; j++) {
       Alien alien = aList[j];
-      if (bullet != null && alien != null && !bullet.gone && !alien.die // Check Array isn't empty and bullet / alien still exist
-      /*------------Hit detect-------------*/        ) {
+      if (bullet != null && alien != null && !bullet.gone && !alien.die ){// Check Array isn't empty and bullet / alien still exist
+      /*------------Hit detect-------------*/   
+       
+            
         /*-------do something------*/
       }
     }
@@ -257,6 +282,16 @@ void loseAnimate() {
 
 
 /*---------Print Text Function-------------*/
+void printText(int x1,int y1,int x2,int y2,String title,String subtitle,int i){
+    fill(95,194,226);
+    textSize(i);
+    textAlign(CENTER,CENTER);
+    text(title,x1,y1);
+    
+    textSize(20);
+    textAlign(CENTER,CENTER);
+    text(subtitle,x2,y2);
+}
 
 
 void removeBullet(Bullet obj) {
@@ -297,7 +332,7 @@ void reset() {
   
 
   /*-----------Call Make Alien Function--------*/
-  alienMaker();
+  alienMaker(50,50,40,50,53,12);
 
   ship.posX = width/2;
   ship.posY = 460;
@@ -343,4 +378,3 @@ void cheatKeys() {
     }
   }
 }
-

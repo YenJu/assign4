@@ -123,11 +123,11 @@ void alienMaker(int ox,int oy,int SpacingX,int SpacingY,
 int num,int numInRow) {
   
   for(int i =0; i<num;i++){
-  int row = i / numInRow;
-  int col = i % numInRow;
+  int row = int(i / numInRow);
+  int col = int( i % numInRow);
 
 //draw frog
- int x = ox + SpacingX*col;
+   int x= ox + SpacingX*col;
  int y = oy + SpacingY*row;
  aList[i]= new Alien(x,y);
  }
